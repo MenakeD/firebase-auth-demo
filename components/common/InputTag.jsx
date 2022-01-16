@@ -8,7 +8,7 @@ const InputTag = ({
   errors = [],
 }) => {
   return (
-    <div className='mb-3 pt-1 '>
+    <div className='mb-4 pt-1 relative'>
       <input
         id={name}
         type={type}

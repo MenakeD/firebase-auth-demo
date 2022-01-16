@@ -2,6 +2,9 @@ import InputTag from '../common/InputTag'
 import Button from '../common/Button'
 import { FcGoogle } from 'react-icons/fc'
 import { useForm } from 'react-hook-form'
+import { useAuth } from '../../hooks/useAuth'
+import { useState } from 'react'
+import { useRouter } from 'next/router'
 
 const LoginForm = ({ setIsLogin }) => {
   const {
@@ -10,8 +13,21 @@ const LoginForm = ({ setIsLogin }) => {
     formState: { errors },
   } = useForm()
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const router = useRouter()
+
+  const { login } = useAuth()
+
+  const [error, setError] = useState('')
+
+  const onSubmit = async (data) => {
+    const { email, password } = data
+    setError('')
+    try {
+      await login(email, password)
+      router.push('/home')
+    } catch (error) {
+      setError(error.message)
+    }
   }
 
   return (
@@ -21,10 +37,11 @@ const LoginForm = ({ setIsLogin }) => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <h1 className='text-2xl font-medium pt-2 pb-4 text-center'>Login</h1>
-        <div className='border-b-2 border-gray-200 pb-4 '>
+        <div className='border-b-2 border-gray-300 pb-4 '>
           <InputTag
             width='w-72 sm:w-96'
             placeholder='Email'
+            type='email'
             name='email'
             register={register}
             errors={errors}
@@ -51,8 +68,8 @@ const LoginForm = ({ setIsLogin }) => {
               },
             }}
           />
-          <div className='py-2'>
-            <Button>Login</Button>
+          <div className='pb-2 pt-4'>
+            <Button type='submit'>Login</Button>
           </div>
         </div>
         <div className='py-4'>
@@ -78,6 +95,11 @@ const LoginForm = ({ setIsLogin }) => {
           Sign up
         </p>
       </section>
+      {error && (
+        <section className='fixed bottom-0 right-8 py-4 px-6 bg-red-300 rounded-lg shadow my-6 flex justify-center '>
+          <p>{error}</p>
+        </section>
+      )}
     </div>
   )
 }

@@ -4,9 +4,13 @@ const Button = ({
   justify = 'justify-center ',
   padding = 'py-2 px-2',
   wrapperStyles = '',
+  type = 'button',
+  onClick = () => {},
 }) => {
   return (
     <button
+      onClick={onClick}
+      type={type}
       className={`w-full ${wrapperStyles} ${padding} flex ${justify} ${color} text-white text-lg rounded-md shadow shadow-blue-500/50  transition-all duration-300 ease-in`}
     >
       {children}

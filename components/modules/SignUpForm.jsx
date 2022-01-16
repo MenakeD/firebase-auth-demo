@@ -1,16 +1,31 @@
 import Button from '../common/Button'
 import InputTag from '../common/InputTag'
 import { useForm } from 'react-hook-form'
+import { useAuth } from '../../hooks/useAuth'
+import { useState } from 'react'
 
 const SignUpForm = ({ setIsLogin }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm()
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const [error, setError] = useState('')
+
+  const { signUp } = useAuth()
+
+  const onSubmit = async (data) => {
+    setError('')
+    const { email, password } = data
+    try {
+      await signUp(email, password)
+      setIsLogin(true)
+    } catch (error) {
+      setError(error.message)
+      reset()
+    }
   }
 
   return (
@@ -50,8 +65,8 @@ const SignUpForm = ({ setIsLogin }) => {
               },
             }}
           />
-          <div className='py-2'>
-            <Button>Sign Up</Button>
+          <div className='pb-2 pt-4'>
+            <Button type='submit'>Sign Up</Button>
           </div>
         </div>
       </form>
@@ -66,6 +81,11 @@ const SignUpForm = ({ setIsLogin }) => {
           Log In
         </p>
       </section>
+      {error && (
+        <section className='fixed bottom-0 right-8 py-4 px-6 bg-red-300 rounded-lg shadow my-6 flex justify-center '>
+          <p>{error}</p>
+        </section>
+      )}
     </div>
   )
 }
