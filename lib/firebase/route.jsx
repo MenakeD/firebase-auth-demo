@@ -9,7 +9,7 @@ const withPublic = (Component) => {
     if (typeof window !== 'undefined') {
       if (authUser) {
         router.push('/home')
-        return <h2>Loading...</h2>
+        return <Loader />
       }
 
       return <Component {...props} auth={authUser} />
