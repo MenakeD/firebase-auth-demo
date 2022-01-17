@@ -15,7 +15,7 @@ const LoginForm = ({ setIsLogin }) => {
 
   const router = useRouter()
 
-  const { login } = useAuth()
+  const { login, signInWithGoogle } = useAuth()
 
   const [error, setError] = useState('')
 
@@ -24,6 +24,15 @@ const LoginForm = ({ setIsLogin }) => {
     setError('')
     try {
       await login(email, password)
+      router.push('/home')
+    } catch (error) {
+      setError(error.message)
+    }
+  }
+
+  const handleGoogleSignin = async () => {
+    try {
+      await signInWithGoogle()
       router.push('/home')
     } catch (error) {
       setError(error.message)
@@ -58,6 +67,7 @@ const LoginForm = ({ setIsLogin }) => {
             width='w-72 sm:w-96'
             placeholder='Password'
             name='password'
+            type='password'
             register={register}
             errors={errors}
             validation={{
@@ -73,7 +83,12 @@ const LoginForm = ({ setIsLogin }) => {
           </div>
         </div>
         <div className='py-4'>
-          <Button justify='' padding='' wrapperStyles='overflow-hidden'>
+          <Button
+            justify=''
+            padding=''
+            wrapperStyles='overflow-hidden'
+            onClick={handleGoogleSignin}
+          >
             <div className='flex space-x-10 sm:space-x-20 items-center'>
               <div className='bg-white h-auto py-1 px-2'>
                 <FcGoogle className='text-4xl' />

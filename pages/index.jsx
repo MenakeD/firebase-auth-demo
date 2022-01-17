@@ -4,7 +4,7 @@ import LoginForm from '../components/modules/LoginForm'
 import SignUpForm from '../components/modules/SignUpForm'
 import Layout from '../components/common/Layout'
 
-const Home = () => {
+const IndexPage = () => {
   const [isLogin, setIsLogin] = useState(true)
   return (
     <Layout title='Firebase Auth Demo'>
@@ -30,4 +30,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default IndexPage

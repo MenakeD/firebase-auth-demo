@@ -55,6 +55,7 @@ const SignUpForm = ({ setIsLogin }) => {
             width='w-72 sm:w-96'
             placeholder='Password'
             name='password'
+            type='password'
             register={register}
             errors={errors}
             validation={{
