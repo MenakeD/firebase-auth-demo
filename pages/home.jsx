@@ -4,7 +4,7 @@ import Button from '../components/common/Button'
 import Container from '../components/common/Container'
 import Layout from '../components/common/Layout'
 import { useAuth } from '../hooks/useAuth'
-import { withProtected } from '../lib/firebase/route'
+import { withProtected } from '../hooks/route'
 
 const HomePage = () => {
   const { authUser, logOut } = useAuth()

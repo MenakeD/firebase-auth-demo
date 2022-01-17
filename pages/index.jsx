@@ -3,7 +3,7 @@ import Container from '../components/common/Container'
 import LoginForm from '../components/modules/LoginForm'
 import SignUpForm from '../components/modules/SignUpForm'
 import Layout from '../components/common/Layout'
-import { withPublic } from '../lib/firebase/route'
+import { withPublic } from '../hooks/route'
 
 const IndexPage = () => {
   const [isLogin, setIsLogin] = useState(true)
