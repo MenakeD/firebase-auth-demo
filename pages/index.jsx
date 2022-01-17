@@ -9,7 +9,7 @@ const IndexPage = () => {
   const [isLogin, setIsLogin] = useState(true)
   return (
     <Layout title='Firebase Auth Demo'>
-      <main className=' bg-gray-100'>
+      <section className=' bg-gray-100'>
         <Container>
           <section className='flex w-full h-screen justify-center items-center'>
             <div>
@@ -26,7 +26,7 @@ const IndexPage = () => {
             </div>
           </section>
         </Container>
-      </main>
+      </section>
     </Layout>
   )
 }

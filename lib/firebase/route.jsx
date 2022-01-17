@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import Loader from '../../components/common/Loader'
 import { useAuth } from '../../hooks/useAuth'
 
 const withPublic = (Component) => {
@@ -24,12 +25,12 @@ const withProtected = (Component) => {
     const { authUser } = useAuth()
     const router = useRouter()
     if (typeof window !== 'undefined') {
-      if (!authUser) {
-        router.push('/')
-        return <h2>Loading...</h2>
+      if (authUser) {
+        return <Component {...props} auth={authUser} />
+      } else {
+        router.replace('/')
+        return <Loader />
       }
-
-      return <Component {...props} auth={authUser} />
     }
     return null
   }
