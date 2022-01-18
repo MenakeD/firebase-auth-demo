@@ -5,6 +5,7 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
+  sendPasswordResetEmail,
   signOut,
 } from 'firebase/auth'
 import { auth } from '../lib/firebase'
@@ -34,13 +35,24 @@ export const UserAuthContextProvider = ({ children }) => {
     return signInWithPopup(auth, provider)
   }
 
+  const resetPassword = (email) => {
+    return sendPasswordResetEmail(auth, email)
+  }
+
   const logOut = () => {
     return signOut(auth)
   }
 
   return (
     <userAuthContext.Provider
-      value={{ authUser, signUp, login, logOut, signInWithGoogle }}
+      value={{
+        authUser,
+        signUp,
+        login,
+        logOut,
+        signInWithGoogle,
+        resetPassword,
+      }}
     >
       {children}
     </userAuthContext.Provider>

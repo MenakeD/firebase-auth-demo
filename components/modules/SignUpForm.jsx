@@ -3,6 +3,7 @@ import InputTag from '../common/InputTag'
 import { useForm } from 'react-hook-form'
 import { useAuth } from '../../hooks/useAuth'
 import { useState } from 'react'
+import { AiFillEye } from 'react-icons/ai'
 
 const SignUpForm = ({ setIsLogin }) => {
   const {
@@ -15,6 +16,8 @@ const SignUpForm = ({ setIsLogin }) => {
   const [error, setError] = useState('')
 
   const { signUp } = useAuth()
+
+  const [passwordType, setPasswordType] = useState('password')
 
   const onSubmit = async (data) => {
     setError('')
@@ -51,21 +54,34 @@ const SignUpForm = ({ setIsLogin }) => {
               },
             }}
           />
-          <InputTag
-            width='w-72 sm:w-96'
-            placeholder='Password'
-            name='password'
-            type='password'
-            register={register}
-            errors={errors}
-            validation={{
-              required: '*Required',
-              minLength: {
-                value: 6,
-                message: '*Min 6 charcters',
-              },
-            }}
-          />
+          <div className='relative'>
+            <InputTag
+              width='w-72 sm:w-96'
+              placeholder='Password'
+              name='password'
+              type={passwordType}
+              register={register}
+              errors={errors}
+              validation={{
+                required: '*Required',
+                minLength: {
+                  value: 6,
+                  message: '*Min 6 charcters',
+                },
+              }}
+            />
+            <div
+              className='absolute right-0 top-0 my-4 mx-3 '
+              onMouseDown={() => {
+                setPasswordType('text')
+              }}
+              onMouseUp={() => {
+                setPasswordType('password')
+              }}
+            >
+              <AiFillEye className='text-xl text-gray-400 cursor-pointer' />
+            </div>
+          </div>
           <div className='pb-2 pt-4'>
             <Button type='submit'>Sign Up</Button>
           </div>
